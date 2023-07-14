@@ -69,10 +69,6 @@ public class Main {
 					LocalDate.of(2023, 2, 5));
 			cat.addPrestito(prestito2);
 
-			Prestito prestito3 = new Prestito(utente2, libro2, LocalDate.of(2023, 2, 1), LocalDate.of(2022, 3, 1),
-					LocalDate.of(2023, 2, 27));
-			cat.addPrestito(prestito2);
-
 			List<Prestito> prestitiUtente = cat.cercaPrestitiUtente("984248");
 			log.info(prestitiUtente);
 

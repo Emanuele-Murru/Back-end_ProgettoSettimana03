@@ -79,7 +79,7 @@ public class CatalogoDAO {
 		return em.find(Prodotto.class, isbn);
 	}
 
-	//Metodo per ricercare un prodotto tramite anno di pubblicazione
+	//Metodo per ricercare 
 	public List<Prodotto> cercaPerAnnoPubblicazione(int anno) {
 		TypedQuery<Prodotto> query = em.createQuery("SELECT e FROM Prodotto e WHERE e.annoPubblicazione = :anno",
 				Prodotto.class);
@@ -87,14 +87,12 @@ public class CatalogoDAO {
 		return query.getResultList();
 	}
 
-	//Metodo per ricercare un prodotto tramite autore
 	public List<Prodotto> cercaTramiteAutore(String autore) {
 		TypedQuery<Prodotto> query = em.createQuery("SELECT e FROM Libri e WHERE e.autore = :autore", Prodotto.class);
 		query.setParameter("autore", autore);
 		return query.getResultList();
 	}
 
-	//Metodo per ricercare un prodotto tramite autore
 	public List<Prodotto> cercaTramiteTitolo(String titolo) {
 		TypedQuery<Prodotto> query = em.createQuery("SELECT e FROM Prodotto e WHERE e.titolo LIKE :titolo",
 				Prodotto.class);
@@ -102,7 +100,6 @@ public class CatalogoDAO {
 		return query.getResultList();
 	}
 
-	//Metodo per cercare prestiti per utente specifico inserendo numero tessera
 	public List<Prestito> cercaPrestitiUtente(String numeroTessera) {
 		TypedQuery<Prestito> query = em.createQuery("SELECT p FROM Prestito p WHERE p.utente.numeroTessera = :tessera",
 				Prestito.class);
@@ -110,7 +107,6 @@ public class CatalogoDAO {
 		return query.getResultList();
 	}
 
-	//Metodo per cercare prestiti scaduti
 	public List<Prestito> cercaPrestitiScaduti() {
 		TypedQuery<Prestito> query = em.createQuery(
 				"SELECT p FROM Prestito p WHERE p.dataRestituzionePrevista < CURRENT_DATE AND p.dataRestituzioneEffettiva IS NULL",
