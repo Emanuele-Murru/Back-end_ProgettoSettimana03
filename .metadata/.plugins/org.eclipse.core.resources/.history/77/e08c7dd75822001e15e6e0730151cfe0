@@ -33,8 +33,8 @@ public class Main {
 			Utente utente1 = new Utente("225487", "Emanuele", "Murru", LocalDate.of(1998, 04, 02));
 			Utente utente2 = new Utente("984248", "Marco", "M&P", LocalDate.of(1983, 02, 25));
 
-			Libri libro1 = new Libri(8548945188L, "Uno, Nessuno, Centomila", 1926, 224, "PIRANDELLO", "Romanzo - Narrativa");
-			Libri libro2 = new Libri(18964166515L, "Il Silmarillion", 2007, 682, "J.R.R. TOLKIEN", "Romanzo - Fantasy - Mitopoiesi");
+			Libri libro1 = new Libri(12345678915L, "Uno, Nessuno, Centomila", 1926, 224, "PIRANDELLO", "Romanzo - Narrativa");
+			Libri libro2 = new Libri(1234567897840L, "Il Silmarillion", 2007, 682, "J.R.R. TOLKIEN", "Romanzo - Fantasy - Mitopoiesi");
 
 			Riviste rivista1 = new Riviste(1584746548L, "Sorrisi&Canzoni", 1952, 38, Periodicita.SETTIMANALE);
 			Riviste rivista2 = new Riviste(984516556854L, "QuattroRuote", 1956, 252, Periodicita.MENSILE);
@@ -47,9 +47,9 @@ public class Main {
 			cat.addProdotto(rivista1);
 			cat.addProdotto(rivista2);
 
-			cat.cancellaTramiteIsbnCode(18964166515L);
+			cat.cancellaTramiteIsbnCode(1584746548L);
 
-			Prodotto item = cat.cercaTramiteIsbnCode(18964166515L);
+			Prodotto item = cat.cercaTramiteIsbnCode(1584746548L);
 			log.info(item);
 
 			List<Prodotto> elementiAnno = cat.cercaPerAnnoPubblicazione(2007);
