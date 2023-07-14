@@ -1,0 +1,9 @@
+package entities;
+
+public class Prestito {
+
+	public Prestito() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

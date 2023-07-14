@@ -1,0 +1,23 @@
+INDEX VERSION 1.134+C:\Users\emanu\Desktop\Epicode course\BACK-END\Back-end_ProgettoSettimana03\.metadata\.plugins\org.eclipse.jdt.core
+3544252168.index
+2132591891.index
+3293177543.index
+754329149.index
+1151189215.index
+3018637288.index
+3279524813.index
+1706723313.index
+1364950422.index
+448533474.index
+2798439141.index
+2004690785.index
+2203940072.index
+1865797976.index
+2142207514.index
+1331384922.index
+2091400512.index
+11444424.index
+1444783259.index
+2013058222.index
+1191106481.index
+944993585.index

@@ -1,0 +1,111 @@
+package utils;
+
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+import javax.persistence.TypedQuery;
+
+import org.jboss.logging.Logger;
+
+import entities.Prestito;
+import entities.Utente;
+import entities.Prodotto;
+
+public class CatalogoDAO {
+	private final EntityManager em;
+	private static Logger log = Logger.getLogger(CatalogoDAO.class);
+
+	public CatalogoDAO(EntityManager em) {
+		this.em = em;
+	}
+
+	public void addProdotto(Prodotto e) {
+		EntityTransaction t = em.getTransaction();
+		t.begin();
+
+		em.persist(e);
+
+		t.commit();
+		log.info("Prodotto salvato con successo");
+	}
+
+	public void addUtente(Utente e) {
+		EntityTransaction t = em.getTransaction();
+		t.begin();
+
+		em.persist(e);
+
+		t.commit();
+		log.info("Prodotto salvato con successo");
+	}
+	
+	public void addPrestito(Prestito p) {
+		EntityTransaction t = em.getTransaction();
+		t.begin();
+
+		
+		if (!em.contains(p.getProdotto())) {
+			em.persist(p.getProdotto());
+		}
+
+		em.persist(p);
+
+		t.commit();
+		log.info("Prestito salvato con successo");
+	}
+
+	public void cancellaTramiteIsbnCode(long isbnCode) {
+		Prodotto found = em.find(Prodotto.class, isbnCode);
+		if (found != null) {
+			EntityTransaction t = em.getTransaction();
+
+			t.begin();
+
+			em.remove(found);
+
+			t.commit();
+			log.info("Prodotto eliminato con successo");
+		} else {
+			log.error("OPS! Prodotto non trovato");
+		}
+	}
+
+	public Prodotto cercaTramiteIsbnCode(Long isbn) {
+		return em.find(Prodotto.class, isbn);
+	}
+
+	public List<Prodotto> ricercaPerAnnoPubblicazione(int anno) {
+		TypedQuery<Prodotto> query = em.createQuery("SELECT e FROM Prodotto e WHERE e.annoPubblicazione = :anno",
+				Prodotto.class);
+		query.setParameter("anno", anno);
+		return query.getResultList();
+	}
+
+	public List<Prodotto> cercaTramiteAutore(String autore) {
+		TypedQuery<Prodotto> query = em.createQuery("SELECT e FROM Libri e WHERE e.autore = :autore", Prodotto.class);
+		query.setParameter("autore", autore);
+		return query.getResultList();
+	}
+
+	public List<Prodotto> cercaTramiteTitolo(String titolo) {
+		TypedQuery<Prodotto> query = em.createQuery("SELECT e FROM Prodotto e WHERE e.titolo LIKE :titolo",
+				Prodotto.class);
+		query.setParameter("titolo", "%" + titolo + "%");
+		return query.getResultList();
+	}
+
+	public List<Prestito> cercaPrestitiUtente(String numeroTessera) {
+		TypedQuery<Prestito> query = em.createQuery("SELECT p FROM Prestito p WHERE p.utente.numeroTessera = :tessera",
+				Prestito.class);
+		query.setParameter("tessera", numeroTessera);
+		return query.getResultList();
+	}
+
+	public List<Prestito> cercaPrestitiScaduti() {
+		TypedQuery<Prestito> query = em.createQuery(
+				"SELECT p FROM Prestito p WHERE p.dataRestituzionePrevista < CURRENT_DATE AND p.dataRestituzioneEffettiva IS NULL",
+				Prestito.class);
+		return query.getResultList();
+	}
+}

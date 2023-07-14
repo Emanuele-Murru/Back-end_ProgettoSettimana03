@@ -1,0 +1,10 @@
+package entities;
+
+public class Prestito {
+	
+
+	public Prestito() {
+		
+	}
+
+}

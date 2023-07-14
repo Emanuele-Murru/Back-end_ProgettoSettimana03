@@ -1,0 +1,23 @@
+package App;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+
+public class Catalogo {
+	static Connection conn = null;
+
+	public static void main(String[] args) {
+		String url = "jdbc://postgresql://localhost:5432/ProgettoSettimana03?useSSL=false";
+		String username = "postgres";
+		String password = "Myfirstdbserver";
+		
+		try {
+			System.out.println("COnnecting to PG...");
+			
+			conn = DriverManager.getConnection(url, username, password);
+			
+			System.out.println("Connected to PG");
+		}catch(Exception e) {
+			e.printStackTrace();		}
+	}
+}

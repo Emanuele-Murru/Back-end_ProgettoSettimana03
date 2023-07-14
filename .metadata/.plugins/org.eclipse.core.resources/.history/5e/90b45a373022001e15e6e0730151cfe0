@@ -1,0 +1,17 @@
+package App;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.*;
+import java.util.stream.Collectors;
+
+import org.apache.commons.io.FileUtils;
+
+import entities.Prodotto;
+
+public class Catalogo {
+
+	public static void main(String[] args) {
+
+	}
+}

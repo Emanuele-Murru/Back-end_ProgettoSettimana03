@@ -1,0 +1,9 @@
+//package entities;
+//
+//import java.time.LocalDate;
+//
+//public class Prestito {
+//	private LocalDate inizioPrestito;
+//	private LocalDate dataRestituzione;
+//	private LocalDate dataRestituizioneEffettiva;
+//}

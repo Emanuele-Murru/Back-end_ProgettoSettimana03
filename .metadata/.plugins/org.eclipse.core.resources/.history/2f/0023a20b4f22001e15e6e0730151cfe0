@@ -1,0 +1,73 @@
+package App;
+
+import java.time.LocalDate;
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
+import org.jboss.logging.Logger;
+
+import entities.Libri;
+import entities.Periodicita;
+import entities.Prestito;
+import entities.Prodotto;
+import entities.Riviste;
+import entities.Utente;
+import utils.CatalogoDAO;
+
+public class Main {
+	private static EntityManagerFactory emf = Persistence.createEntityManagerFactory("ProgettoSettimana03");
+	private static Logger log = Logger.getLogger(Main.class);
+
+		public static void main(String[] args) {
+			EntityManager em = emf.createEntityManager();
+			CatalogoDAO ctg = new CatalogoDAO(em);
+
+			// -----------------------SAVE-------------------------------------
+			Utente persona1 = new Utente("032659", "Mario", "Rossi", LocalDate.of(1980, 05, 15));
+			Utente persona2 = new Utente("045948", "Laura", "Verdi", LocalDate.of(1992, 11, 28));
+
+			Libri nuovo = new Libri(1234567890L, "Il signore degli Anelli", 2007, 662, "Tolkien", "Fantasy");
+			Libri nuovo1 = new Libri(1234567891L, "Il signore degli Anelli2", 2009, 789, "Tolkien", "Fantasy");
+
+			Riviste nuovo2 = new Riviste(1234567892L, "Focus", 1998, 45, Periodicita.SETTIMANALE);
+			Riviste nuovo3 = new Riviste(1234567893L, "Vivair", 1994, 33, Periodicita.SEMESTRALE);
+
+			ctg.addUser(persona1);
+			ctg.addUser(persona2);
+
+			ctg.addItem(nuovo);
+			ctg.addItem(nuovo1);
+			ctg.addItem(nuovo2);
+			ctg.addItem(nuovo3);
+
+			ctg.cancellaTramiteIsbnCode(1234567893L);
+
+			Prodotto item = ctg.cercaTramiteIsbnCode(1234567893L);
+			log.info(item);
+
+			List<Prodotto> elementiAnno = ctg.ricercaPerAnnoPubblicazione(2007);
+			log.info(elementiAnno);
+
+			List<Prodotto> elementiAutore = ctg.cercaTramiteAutore("Tolkien");
+			log.info(elementiAutore);
+
+			List<Prodotto> elementiTitolo = ctg.cercaTramiteTitolo("Focus");
+			log.info(elementiTitolo);
+
+			Prestito user = new Prestito(persona2, nuovo3, LocalDate.of(2022, 5, 30), LocalDate.of(2022, 7, 30),
+					LocalDate.of(2022, 9, 10));
+			ctg.addPrestito(user);
+
+			List<Prestito> prestitiUtente = ctg.cercaPrestitiUtente("032659");
+			log.info(prestitiUtente);
+
+			List<Prestito> prestitiScadutiNonRestituiti = ctg.cercaPrestitiScaduti();
+			log.info(prestitiScadutiNonRestituiti);
+
+			em.close();
+			emf.close();
+	}
+}

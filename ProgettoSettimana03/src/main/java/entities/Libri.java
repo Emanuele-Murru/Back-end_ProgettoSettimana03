@@ -1,0 +1,34 @@
+package entities;
+
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@DiscriminatorValue("Book")
+
+public class Libri extends Prodotto{
+	
+	private String autore;
+	private String genere;
+	
+	public Libri(Long isbnCode, String titolo, int annoPubblicazione , int numPagine, String autore, String genere) {
+		super(isbnCode, titolo, annoPubblicazione, numPagine);
+		this.autore = autore;
+		this.genere = genere;
+	}
+
+	@Override
+	public String toString() {
+		return "Libro [autore=" + autore + ", genere=" + genere + ", getIsbnCode()=" + getIsbnCode() + ", getTitolo()="
+				+ getTitolo() + ", getAnnoPubblicazione()=" + getAnnoPubblicazione() + ", getNumPagine()="
+				+ getNumPagine() + "]";
+	}
+	
+}
