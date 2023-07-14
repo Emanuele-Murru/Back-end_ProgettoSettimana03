@@ -57,7 +57,7 @@ public class CatalogoDAO {
 		log.info("Prestito salvato con successo");
 	}
 
-	//Metodo per cancellare un prodotto con codice univoco
+	
 	public void cancellaTramiteIsbnCode(long isbnCode) {
 		Prodotto product = em.find(Prodotto.class, isbnCode);
 		if (product != null) {
@@ -74,13 +74,11 @@ public class CatalogoDAO {
 		}
 	}
 
-	//Metodo per trovare prodotto con codice univoco
 	public Prodotto cercaTramiteIsbnCode(Long isbn) {
 		return em.find(Prodotto.class, isbn);
 	}
 
-	//Metodo per ricercare 
-	public List<Prodotto> cercaPerAnnoPubblicazione(int anno) {
+	public List<Prodotto> ricercaPerAnnoPubblicazione(int anno) {
 		TypedQuery<Prodotto> query = em.createQuery("SELECT e FROM Prodotto e WHERE e.annoPubblicazione = :anno",
 				Prodotto.class);
 		query.setParameter("anno", anno);

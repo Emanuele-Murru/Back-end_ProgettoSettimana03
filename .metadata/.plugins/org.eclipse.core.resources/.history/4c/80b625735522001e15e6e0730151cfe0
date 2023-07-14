@@ -52,7 +52,7 @@ public class Main {
 			Prodotto item = cat.cercaTramiteIsbnCode(1584746548L);
 			log.info(item);
 
-			List<Prodotto> elementiAnno = cat.cercaPerAnnoPubblicazione(2007);
+			List<Prodotto> elementiAnno = cat.ricercaPerAnnoPubblicazione(2007);
 			log.info(elementiAnno);
 
 			List<Prodotto> elementiAutore = cat.cercaTramiteAutore("PIRANDELLO");

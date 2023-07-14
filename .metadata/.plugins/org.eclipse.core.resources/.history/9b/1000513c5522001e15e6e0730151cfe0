@@ -30,7 +30,6 @@ public class CatalogoDAO {
 		log.info("Prodotto salvato con successo");
 	}
 
-	//Metodo per aggiungere Utente
 	public void addUtente(Utente e) {
 		EntityTransaction t = em.getTransaction();
 		t.begin();
@@ -41,7 +40,6 @@ public class CatalogoDAO {
 		log.info("Prodotto salvato con successo");
 	}
 	
-	////Metodo per aggiungere Prestito
 	public void addPrestito(Prestito p) {
 		EntityTransaction t = em.getTransaction();
 		t.begin();
@@ -57,30 +55,27 @@ public class CatalogoDAO {
 		log.info("Prestito salvato con successo");
 	}
 
-	//Metodo per cancellare un prodotto con codice univoco
 	public void cancellaTramiteIsbnCode(long isbnCode) {
-		Prodotto product = em.find(Prodotto.class, isbnCode);
-		if (product != null) {
+		Prodotto found = em.find(Prodotto.class, isbnCode);
+		if (found != null) {
 			EntityTransaction t = em.getTransaction();
 
 			t.begin();
 
-			em.remove(product);
+			em.remove(found);
 
 			t.commit();
-			log.info("Prodotto" + isbnCode + "eliminato con successo");
+			log.info("Prodotto eliminato con successo");
 		} else {
 			log.error("OPS! Prodotto non trovato");
 		}
 	}
 
-	//Metodo per trovare prodotto con codice univoco
 	public Prodotto cercaTramiteIsbnCode(Long isbn) {
 		return em.find(Prodotto.class, isbn);
 	}
 
-	//Metodo per ricercare 
-	public List<Prodotto> cercaPerAnnoPubblicazione(int anno) {
+	public List<Prodotto> ricercaPerAnnoPubblicazione(int anno) {
 		TypedQuery<Prodotto> query = em.createQuery("SELECT e FROM Prodotto e WHERE e.annoPubblicazione = :anno",
 				Prodotto.class);
 		query.setParameter("anno", anno);
