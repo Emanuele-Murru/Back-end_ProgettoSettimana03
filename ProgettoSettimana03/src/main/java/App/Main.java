@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 
 import org.jboss.logging.Logger;
 
@@ -16,10 +15,11 @@ import entities.Prodotto;
 import entities.Riviste;
 import entities.Utente;
 import utils.CatalogoDAO;
+import utils.JpaUtil;
 
 public class Main {
 	
-	private static EntityManagerFactory emf = Persistence.createEntityManagerFactory("ProgettoSettimana03");
+	private static EntityManagerFactory emf = JpaUtil.getEntityManagerFactory();
 	
 	private static Logger log = Logger.getLogger(Main.class);
 
@@ -29,7 +29,7 @@ public class Main {
 			
 			CatalogoDAO cat = new CatalogoDAO(em);
 
-			// -----------------------SAVE-------------------------------------
+			// -----------------------SAVE------------------------------------- 
 			Utente utente1 = new Utente("225487", "Emanuele", "Murru", LocalDate.of(1998, 04, 02));
 			Utente utente2 = new Utente("984248", "Marco", "M&P", LocalDate.of(1983, 02, 25));
 
@@ -52,7 +52,7 @@ public class Main {
 			Prodotto item = cat.cercaTramiteIsbnCode(18964166515L);
 			log.info(item);
 
-			List<Prodotto> elementiAnno = cat.cercaPerAnnoPubblicazione(2007);
+			List<Prodotto> elementiAnno = cat.cercaPerAnnoPubblicazione(1998);
 			log.info(elementiAnno);
 
 			List<Prodotto> elementiAutore = cat.cercaTramiteAutore("PIRANDELLO");
@@ -67,10 +67,6 @@ public class Main {
 			
 			Prestito prestito2 = new Prestito(utente2, rivista2, LocalDate.of(2023, 1, 1), LocalDate.of(2022, 2, 1),
 					LocalDate.of(2023, 2, 5));
-			cat.addPrestito(prestito2);
-
-			Prestito prestito3 = new Prestito(utente2, libro2, LocalDate.of(2023, 2, 1), LocalDate.of(2022, 3, 1),
-					LocalDate.of(2023, 2, 27));
 			cat.addPrestito(prestito2);
 
 			List<Prestito> prestitiUtente = cat.cercaPrestitiUtente("984248");
